@@ -91,7 +91,7 @@ mod models {
                 .into_iter()
                 .filter(|value| ids.contains(&value.id));
 
-            let mut models = if field_args.only_admins() {
+            let mut models = if field_args.only_admins().expect("no arguments") {
                 Either::Left(models.filter(|user| user.admin))
             } else {
                 Either::Right(models)
@@ -166,7 +166,7 @@ mod models {
                 .into_iter()
                 .filter(|user| country_ids.contains(&user.country_id));
 
-            let models = if only_admins {
+            let models = if only_admins.expect("no arguments") {
                 Either::Left(models.filter(|user| user.admin))
             } else {
                 Either::Right(models)
